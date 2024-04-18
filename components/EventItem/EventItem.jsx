@@ -1,5 +1,8 @@
 import React from 'react';
-import Link from 'next/link';
+import { BiCalendarEvent } from 'react-icons/bi';
+import { BsArrowRight } from 'react-icons/bs';
+import { SlLocationPin } from 'react-icons/sl';
+import Button from '../Button/Button';
 import classes from './EventItem.module.css';
 
 const EventItem = ({ event }) => {
@@ -9,7 +12,7 @@ const EventItem = ({ event }) => {
     year: 'numeric',
     month: 'long',
   });
-  const formattedAddress = location.replace(' ,', '\n');
+  const formattedAddress = location.replace(', ', '\n');
 
   return (
     <li className={classes.item}>
@@ -20,18 +23,21 @@ const EventItem = ({ event }) => {
           <h2>{title}</h2>
 
           <div className={classes.date}>
+            <BiCalendarEvent />
             <time>{readableDate}</time>
           </div>
 
           <div className={classes.address}>
+            <SlLocationPin />
             <address>{formattedAddress}</address>
           </div>
         </div>
 
-        <div>
-          <Link className={classes.actions} href={`/events/${id}`}>
+        <div className={classes.actions}>
+          <Button link={`/events/${id}`}>
             Explore Event
-          </Link>
+            <BsArrowRight />
+          </Button>
         </div>
       </div>
     </li>
