@@ -6,7 +6,7 @@ export default function Home() {
 
   return (
     <div>
-      <EventList items={featuredEvents} />
+      <EventList events={featuredEvents} />
     </div>
   );
 }
