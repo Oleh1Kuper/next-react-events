@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import classes from './Button.module.css';
 
-const Button = ({ children, link, onClick }) => {
+const Button = ({ children, link }) => {
   if (link) {
     return (
       <Link href={link} className={classes.btn}>
@@ -17,7 +17,6 @@ const Button = ({ children, link, onClick }) => {
     <button
       type="submit"
       className={classes.btn}
-      onClick={onClick}
     >
       {children}
     </button>

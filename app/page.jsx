@@ -1,4 +1,5 @@
 import EventList from '@/components/EventList/EventList';
+import NewsletterRegistration from '@/components/NewsletterRegistration/NewsletterRegistration';
 import { getFeaturedEvents } from '@/services/apiUtil';
 
 export default async function Home() {
@@ -6,6 +7,7 @@ export default async function Home() {
 
   return (
     <div>
+      <NewsletterRegistration />
       <EventList events={featuredEvents} />
     </div>
   );

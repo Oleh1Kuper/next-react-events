@@ -12,3 +12,5 @@ export const months = [
   { label: 'November', value: 11 },
   { label: 'December', value: 12 },
 ];
+
+export const regexEmail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;

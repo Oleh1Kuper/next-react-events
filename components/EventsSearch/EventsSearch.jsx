@@ -45,7 +45,7 @@ const EventsSearch = () => {
         </div>
       </div>
 
-      <Button onClick={() => {}}>Find Events</Button>
+      <Button>Find Events</Button>
     </form>
   );
 };

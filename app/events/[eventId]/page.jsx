@@ -4,6 +4,7 @@ import EventSummary from '@/components/EventSummary/EventSummary';
 import EventContent from '@/components/EventContent/EventContent';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 import { getEventById } from '@/services/apiUtil';
+import Comments from '@/components/Comments/Comments';
 
 export const generateMetadata = async ({ params }) => {
   const event = await getEventById(params.eventId);
@@ -32,6 +33,7 @@ const EventDetailPage = async ({ params: { eventId } }) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments />
     </>
   );
 };
