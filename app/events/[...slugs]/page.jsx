@@ -1,11 +1,21 @@
 import React from 'react';
-import { getFilteredEvents } from '@/dammyData';
 import EventList from '@/components/EventList/EventList';
 import ResultsTitle from '@/components/ResultsTitle/ResultsTitle';
 import Button from '@/components/Button/Button';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import { getFilteredEvents } from '@/services/apiUtil';
 
-const FilteredEventPage = ({ params: { slugs } }) => {
+export const generateMetadata = async ({ params: { slugs } }) => {
+  const month = slugs[1];
+  const year = slugs[0];
+
+  return {
+    title: 'Filtered events',
+    description: `All events for ${month}/${year}`,
+  };
+};
+
+const FilteredEventPage = async ({ params: { slugs } }) => {
   const month = +slugs[1];
   const year = +slugs[0];
   const condition = isNaN(month) || month > 12 || month < 1 || isNaN(year);
@@ -23,7 +33,7 @@ const FilteredEventPage = ({ params: { slugs } }) => {
     );
   }
 
-  const filteredEvents = getFilteredEvents({ year, month });
+  const filteredEvents = await getFilteredEvents({ year, month });
 
   if (!filteredEvents.length) {
     return (

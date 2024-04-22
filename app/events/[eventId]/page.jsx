@@ -1,12 +1,21 @@
 import React from 'react';
 import EventLogistics from '@/components/EventLogistics/EventLogistics';
 import EventSummary from '@/components/EventSummary/EventSummary';
-import { getEventById } from '@/dammyData';
 import EventContent from '@/components/EventContent/EventContent';
 import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
+import { getEventById } from '@/services/apiUtil';
 
-const EventDetailPage = ({ params: { eventId } }) => {
-  const event = getEventById(eventId);
+export const generateMetadata = async ({ params }) => {
+  const event = await getEventById(params.eventId);
+
+  return {
+    title: event.title,
+    description: event.description,
+  };
+};
+
+const EventDetailPage = async ({ params: { eventId } }) => {
+  const event = await getEventById(eventId);
 
   if (!event) {
     return (

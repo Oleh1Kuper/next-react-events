@@ -1,8 +1,8 @@
-import { getFeaturedEvents } from '@/dammyData';
 import EventList from '@/components/EventList/EventList';
+import { getFeaturedEvents } from '@/services/apiUtil';
 
-export default function Home() {
-  const featuredEvents = getFeaturedEvents();
+export default async function Home() {
+  const featuredEvents = await getFeaturedEvents();
 
   return (
     <div>

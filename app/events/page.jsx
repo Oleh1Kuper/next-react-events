@@ -1,10 +1,15 @@
 import React from 'react';
-import { getAllEvents } from '@/dammyData';
 import EventList from '@/components/EventList/EventList';
 import EventsSearch from '@/components/EventsSearch/EventsSearch';
+import { getAllEvents } from '@/services/apiUtil';
 
-const EvetsPage = () => {
-  const events = getAllEvents();
+export const metadata = {
+  title: 'All Events',
+  description: 'Find a lot of great events',
+};
+
+const EvetsPage = async () => {
+  const events = await getAllEvents();
 
   return (
     <>

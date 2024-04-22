@@ -3,6 +3,7 @@ import { BiCalendarEvent } from 'react-icons/bi';
 import { BsArrowRight } from 'react-icons/bs';
 import { SlLocationPin } from 'react-icons/sl';
 import Button from '../Button/Button';
+import Image from 'next/image';
 import classes from './EventItem.module.css';
 
 const EventItem = ({ event }) => {
@@ -16,7 +17,7 @@ const EventItem = ({ event }) => {
 
   return (
     <li className={classes.item}>
-      <img src={`/${image}`} alt={title} />
+      <Image src={`/${image}`} alt={title} width={250} height={160} />
 
       <div className={classes.content}>
         <div>
