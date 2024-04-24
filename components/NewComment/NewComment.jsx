@@ -1,16 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'next/navigation';
 import { regexEmail } from '@/constants';
 import classes from './NewComment.module.css';
+import { Context } from '@/store/NotificationContexts';
 
 const NewComment = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     defaultValues: {
       email: '',
@@ -20,15 +22,47 @@ const NewComment = () => {
   });
 
   const { eventId } = useParams();
+  const { showNotification } = useContext(Context);
+  const [isLoad, setIsLoad] = useState(false);
+
 
   const onSubmit = async (data) => {
-    await fetch(`/api/comments/${eventId}`, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    setIsLoad(true);
+
+    showNotification({
+      title: 'Sending comment...',
+      message: 'Adding a new comment',
+      status: 'pending',
     });
+
+    try {
+      const response = await fetch(`/api/comments/${eventId}`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Internal Server Error');
+      }
+
+      showNotification({
+        title: 'Success',
+        message: 'Successfully added a new comment',
+        status: 'success',
+      });
+      reset();
+    } catch (error) {
+      showNotification({
+        title: 'Error!',
+        message: error.message,
+        status: 'error',
+      });
+    } finally {
+      setIsLoad(false);
+    }
   };
 
   return (
@@ -83,7 +117,9 @@ const NewComment = () => {
         {errors.comment?.message && <p>{errors.comment.message}</p>}
       </div>
 
-      <button className={classes.btn} type="submit">Submit</button>
+      <button disabled={isLoad} className={classes.btn} type="submit">
+        {isLoad ? 'Loading...' : 'Submit'}
+      </button>
     </form>
   );
 };

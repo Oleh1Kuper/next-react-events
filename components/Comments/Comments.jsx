@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import NewComment from '../NewComment/NewComment';
-import CommentList from '../CommentList/CommentList';
-import classes from './Comments.module.css';
 import { useParams } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
+import CommentList from '../CommentList/CommentList';
+import NewComment from '../NewComment/NewComment';
+import classes from './Comments.module.css';
+import { Context } from '@/store/NotificationContexts';
 
 const Comments = () => {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState(null);
   const { eventId } = useParams();
+  const { notification } = useContext(Context);
 
   const fetchComments = async () => {
     const response = await fetch(`/api/comments/${eventId}`);
@@ -19,10 +21,10 @@ const Comments = () => {
   };
 
   useEffect(() => {
-    if (showComments) {
+    if (showComments || !notification) {
       fetchComments();
     }
-  }, [showComments])
+  }, [showComments, notification]);
 
   const toggleCommentsHandler = () => {
     setShowComments(!showComments);
