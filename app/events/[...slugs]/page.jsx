@@ -6,8 +6,7 @@ import ErrorAlert from '@/components/ErrorAlert/ErrorAlert';
 import { getFilteredEvents } from '@/services/apiUtil';
 
 export const generateMetadata = async ({ params: { slugs } }) => {
-  const month = slugs[1];
-  const year = slugs[0];
+  const [year, month] = slugs;
 
   return {
     title: 'Filtered events',
@@ -16,8 +15,7 @@ export const generateMetadata = async ({ params: { slugs } }) => {
 };
 
 const FilteredEventPage = async ({ params: { slugs } }) => {
-  const month = +slugs[1];
-  const year = +slugs[0];
+  const [year, month] = slugs;
   const condition = isNaN(month) || month > 12 || month < 1 || isNaN(year);
 
   if (condition) {

@@ -14,10 +14,14 @@ const Comments = () => {
   const { notification } = useContext(Context);
 
   const fetchComments = async () => {
-    const response = await fetch(`/api/comments/${eventId}`);
-    const data = await response.json();
-
-    setComments(data.comments);
+    try {
+      const response = await fetch(`/api/comments/${eventId}`);
+      const data = await response.json();
+  
+      setComments(data.comments);
+    } catch (error) {
+      throw error;
+    }
   };
 
   useEffect(() => {
